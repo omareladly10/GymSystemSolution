@@ -1,3 +1,5 @@
+using GymSystem.DAL.Repositories.Interfaces;
+
 namespace GymSystem
 {
     public class Program
@@ -31,6 +33,7 @@ namespace GymSystem
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
+          
             app.Run();
         }
     }

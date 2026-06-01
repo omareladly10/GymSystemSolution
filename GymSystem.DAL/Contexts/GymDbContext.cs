@@ -15,10 +15,8 @@ namespace GymSystem.DAL.Contexts
    public class GymDbContext : DbContext
     {
 
-
-       
-        
-            protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+      
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
                 optionsBuilder.UseSqlServer("Server=.;database=GymDb;trusted_connection=true;trustserverCertificate=true");
 
