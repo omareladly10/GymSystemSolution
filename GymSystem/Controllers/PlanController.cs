@@ -11,11 +11,13 @@ namespace GymSystem.Controllers
    public class PlanController : Controller
     {
  
-        private readonly  IPlanRepository planRepository = new PlanRepository();
+        private readonly  IPlanRepository planRepository ;
 
-      
-        
+        public PlanController(IPlanRepository _planRepository)
+        {
 
+            planRepository =  _planRepository;
+        }
 
         public async Task<IActionResult> Index(CancellationToken token)
         {

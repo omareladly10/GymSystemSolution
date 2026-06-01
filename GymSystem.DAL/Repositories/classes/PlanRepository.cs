@@ -14,10 +14,15 @@ namespace GymSystem.DAL.Repositories.classes
     public class PlanRepository : IPlanRepository
     {
 
-        private readonly GymDbContext dbContext = new GymDbContext();
+        private readonly GymDbContext dbContext;
 
-    
-        
+        public PlanRepository(GymDbContext _dbContext)
+
+        {
+
+            dbContext = _dbContext;
+        }
+
 
         public async Task<IEnumerable<Plan>> GetAll(bool isTracked, CancellationToken ct = default)
         {

@@ -1,3 +1,5 @@
+using GymSystem.DAL.Contexts;
+using GymSystem.DAL.Repositories.classes;
 using GymSystem.DAL.Repositories.Interfaces;
 
 namespace GymSystem
@@ -11,6 +13,8 @@ namespace GymSystem
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<GymDbContext>();
+            builder.Services.AddScoped<IPlanRepository, PlanRepository>();
 
             var app = builder.Build();
 
