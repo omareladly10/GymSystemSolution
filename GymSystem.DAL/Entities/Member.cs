@@ -12,5 +12,7 @@ namespace GymSystem.DAL.Entities
 
 
         public ICollection<Membership> Memberships = new HashSet<Membership>();
+
+        public ICollection<Booking> Bookings = new HashSet<Booking>();
     }
 }
