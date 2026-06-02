@@ -27,5 +27,9 @@ namespace GymSystem.DAL.Entities
 
 
         public bool IsActive { get; set; }
+
+
+
+        public ICollection<Membership> Memberships = new HashSet<Membership>();
     }
 }
