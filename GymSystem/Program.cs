@@ -20,7 +20,11 @@ namespace GymSystem
                 Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 
             });
-            builder.Services.AddScoped<IPlanRepository, PlanRepository>();
+            //builder.Services.AddScoped<IPlanRepository, PlanRepository>();
+
+
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 
             var app = builder.Build();
 
