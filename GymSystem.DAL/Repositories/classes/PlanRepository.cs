@@ -54,9 +54,9 @@ namespace GymSystem.DAL.Repositories.classes
 
 
 
-        public void Delete(int plan)
+        public void Delete(int id)
         {
-            var Plan = dbContext.Plans.FirstOrDefault(p => p.Id == plan);
+            var Plan = dbContext.Plans.FirstOrDefault(p => p.Id == id);
 
             if (Plan != null)
                 dbContext.Plans.Remove(Plan);
