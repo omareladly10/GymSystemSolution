@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GymSystem.DAL.Configurations
 {
-  public class PlanConfigurations :IEntityTypeConfiguration<Plan>
+  internal class PlanConfigurations :IEntityTypeConfiguration<Plan>
     {
 
 

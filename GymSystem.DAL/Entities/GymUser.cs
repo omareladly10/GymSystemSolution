@@ -1,4 +1,5 @@
 ﻿using GymSystem.DAL.Entities.Enums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -33,7 +34,7 @@ namespace GymSystem.DAL.Entities
         public Address Address { get; set; } = null!;
 
   }
-
+    [Owned]
     public class Address
 
     {

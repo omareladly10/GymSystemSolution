@@ -1,6 +1,8 @@
 using GymSystem.DAL.Contexts;
 using GymSystem.DAL.Repositories.classes;
 using GymSystem.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace GymSystem
 {
@@ -13,7 +15,11 @@ namespace GymSystem
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<GymDbContext>();
+            builder.Services.AddDbContext<GymDbContext>(Options =>
+            {
+                Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+            });
             builder.Services.AddScoped<IPlanRepository, PlanRepository>();
 
             var app = builder.Build();

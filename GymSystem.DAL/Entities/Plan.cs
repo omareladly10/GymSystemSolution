@@ -25,7 +25,7 @@ namespace GymSystem.DAL.Entities
         public int Duration { get; set; }
 
 
-
+        public  DateTime? UpdatedAt { get; set; }
         public bool IsActive { get; set; }
 
 

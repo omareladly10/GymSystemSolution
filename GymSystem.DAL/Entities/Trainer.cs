@@ -17,7 +17,7 @@ namespace GymSystem.DAL.Entities
 
 
         
-        public ICollection<Sesstion> Sesstions { get; set; } = new HashSet<Sesstion>();
+        public ICollection<Session> Sessions { get; set; } = new HashSet<Session>();
    
    }
 }
