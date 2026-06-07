@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,11 @@ namespace GymSystem.DAL.Repositories.classes
             dbContext.Set<TEntity>().Add(item);
         }
 
+        public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken ct = default)
+        {
+            return await dbContext.Set<TEntity>().AnyAsync(predicate, ct);
+        }
+
         public async Task<int> CompleteAsync()
         {
             return await dbContext.SaveChangesAsync();
@@ -37,6 +43,13 @@ namespace GymSystem.DAL.Repositories.classes
                 dbContext.Set<TEntity>().Remove(Item);
         }
 
+        public async Task<TEntity?> FirstOrDefultAsync(Expression<Func<TEntity, bool>> predicate, bool istracked = false, CancellationToken ct = default)
+        {
+            var Items = istracked ? dbContext.Set<TEntity>() : dbContext.Set<TEntity>().AsNoTracking();
+
+            return await Items.FirstOrDefaultAsync(predicate, ct);
+        }
+
         public async Task<IEnumerable<TEntity>> GetAll(bool isTracked, CancellationToken ct = default)
         {
             var Items = isTracked ? dbContext.Set<TEntity>() : dbContext.Set<TEntity>().AsNoTracking();
@@ -46,7 +59,7 @@ namespace GymSystem.DAL.Repositories.classes
 
         public async Task<TEntity?> GetById(int id, CancellationToken ct = default)
         {
-            var Item = await dbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
+            var Item = await dbContext.Set<TEntity>().FirstOrDefaultAsync(p => p.Id == id);
 
             return Item;
         }
