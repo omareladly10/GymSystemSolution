@@ -1,3 +1,5 @@
+using GymSystem.BLL._ÚServices.Classes;
+using GymSystem.BLL._ÚServices.Interfaces;
 using GymSystem.DAL.Contexts;
 using GymSystem.DAL.Repositories.classes;
 using GymSystem.DAL.Repositories.Interfaces;
@@ -25,7 +27,7 @@ namespace GymSystem
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-
+            builder.Services.AddScoped<IMemberServices, MemberServices>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
