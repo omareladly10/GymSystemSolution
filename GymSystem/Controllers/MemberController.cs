@@ -16,6 +16,7 @@ namespace GymSystem.Controllers
         }
         public async Task <IActionResult> Index(CancellationToken ct)
         {
+            var tempResult = TempData["Result"];
             var Members = await memberServices.GetAllMembersAsync(ct);
 
             return View(Members);
@@ -34,7 +35,13 @@ namespace GymSystem.Controllers
         {
             if (!ModelState.IsValid) return View(nameof(Create), model);
 
-            await memberServices.CreateMemberAsync(model, ct);
+          var Result =   await memberServices.CreateMemberAsync(model, ct);
+
+
+            if (Result)
+                TempData["Success"] = "Member Create Succesfully";
+            else
+                TempData["Failed"] = "Failed to Create Member";
 
             return RedirectToAction(nameof(Index));
         }
