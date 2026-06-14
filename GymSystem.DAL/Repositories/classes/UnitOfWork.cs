@@ -16,9 +16,13 @@ namespace GymSystem.DAL.Repositories.classes
 
      private readonly GymDbContext dbContext;
 
+        public ISessionRepository SessionRepository { get; }
+
         public UnitOfWork( GymDbContext dbContext)
         {
             this.dbContext = dbContext;
+
+            SessionRepository = new SessionRepository(dbContext);
         }
 
 

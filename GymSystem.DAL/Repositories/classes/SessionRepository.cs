@@ -1,0 +1,44 @@
+﻿using GymSystem.DAL.Contexts;
+using GymSystem.DAL.Entities;
+using GymSystem.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GymSystem.DAL.Repositories.classes
+{
+    public class SessionRepository : GenericRepository<Session>, ISessionRepository
+    {
+        private readonly GymDbContext dbContext;
+
+        public SessionRepository(GymDbContext dbContext) : base(dbContext) 
+        {
+            this.dbContext = dbContext;
+        }
+        public async Task<Session> GetAllSessionsByIdWithTrainerAndCategoryAssync(int sessionId, CancellationToken ct)
+        {
+
+
+            var Session = dbContext.Sessions.Include(s => s.Trainer).Include(s => s.Category).
+                FirstOrDefaultAsync(s=>s.Id == sessionId);
+
+            return await Session;
+
+        }
+
+        public async Task<IEnumerable<Session>> GetAllSessionsWithTrainerAndCategoryAssync(CancellationToken ct)
+        {
+            var Sessions = dbContext.Sessions.AsNoTracking().Include(s => s.Trainer).Include(s => s.Category);
+
+            return await Sessions.ToListAsync(ct);
+        }
+
+        public Task<int> GetCountOfBookedSlotAsync(int sessionId, CancellationToken ct)
+        {
+            return dbContext.Bookings.AsNoTracking().CountAsync(b => b.SessionId == sessionId);
+        }
+    }
+}

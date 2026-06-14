@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GymSystem.BLL.ViewModels.SessionViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace GymSystem.BLL._ٍServices.Interfaces
 {
     public interface ISessionServices
     {
-        public Task<IEnumerable<>> GetAllSessionsAsync(CancellationToken ct);
+        public Task<IEnumerable<SessionViewModel>> GetAllSessionsAsync(CancellationToken ct);
 
     }
 }
