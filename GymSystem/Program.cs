@@ -1,5 +1,6 @@
 using GymSystem.BLL._ÚServices.Classes;
 using GymSystem.BLL._ÚServices.Interfaces;
+using GymSystem.BLL.Utilities;
 using GymSystem.DAL.Contexts;
 using GymSystem.DAL.Repositories.classes;
 using GymSystem.DAL.Repositories.Interfaces;
@@ -29,7 +30,13 @@ namespace GymSystem
 
             builder.Services.AddScoped<IMemberServices, MemberServices>();
 
+
+            builder.Services.AddScoped<ISessionServices, SessionServices>();
+
+
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            builder.Services.AddAutoMapper(m => m.AddProfile(new MappingProfile()));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
