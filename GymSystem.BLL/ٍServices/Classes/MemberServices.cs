@@ -49,13 +49,14 @@ namespace GymSystem.BLL._ٍServices.Classes
 
             if(Record is null) return null;
 
-            return new HealthRecordViewModel()
-            {
-                Weight = Record.Weight,
-                Height = Record.Height,
-                BloodType = Record.BloodType,
-                Note = Record.Note,
-            };
+            else
+                return new HealthRecordViewModel
+                {
+                    Weight = Record.Weight,
+                    Height = Record.Height,
+                    BloodType = Record.BloodType,
+                    Note = Record.Note,
+                };
            
         }
 

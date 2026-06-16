@@ -48,7 +48,7 @@ namespace GymSystem.Controllers
         }
 
 
-        [HttpGet]
+      [HttpGet]
         public async Task<IActionResult> MemberDetails(int id, CancellationToken ct)
         {
 
@@ -82,5 +82,12 @@ namespace GymSystem.Controllers
             return View (healthRecord);
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await memberServices.DeleteMemberAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
