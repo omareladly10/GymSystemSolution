@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GymSystem.BLL.ViewModels.SessionViewModels;
+using GymSystem.BLL.ViewModels.SessionsViewModels;
 using GymSystem.DAL.Entities;
 using Microsoft.Data.SqlClient;
 using System;
@@ -23,9 +23,14 @@ namespace GymSystem.BLL.Utilities
         {
             CreateMap<Session, SessionViewModel>()
                 .ForMember(dest=>dest.CategoryName ,opt=> opt.MapFrom(src=>src.Category.CategoryName))
-                .ForMember(dest => dest.TrainerName, opt => opt.MapFrom(src => src.Trainer.Name))
-                .ForMember(dest=>dest.AvailableSlots,opt=>opt.Ignore()).ReverseMap();
+                .ForMember(dest => dest.TrainerName, opt => opt.MapFrom(src => src.Trainer.Name)).ReverseMap();
 
+
+            CreateMap<CreateSessionViewModel, Session>();
+
+            CreateMap<Trainer, TrainerSelectViewModel>();
+
+            CreateMap<Category, CategorySelectViewModel>();
         }
     }
 }
