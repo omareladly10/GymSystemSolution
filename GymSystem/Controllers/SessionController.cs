@@ -58,5 +58,19 @@ namespace GymSystem.Controllers
 
             ViewBag.Categories =new SelectList( await sessionServices.GetCategoriesForDropDownAsync(ct), "Id", "CategoryName");
         }
+
+        [HttpGet]
+
+        public async Task<IActionResult> Details(int id, CancellationToken ct)
+        {
+            var session = await sessionServices.GetSessionByIdAsync(id, ct);
+            if (session is null)
+            {
+                TempData["ErrorMessage"] = "Session Not Found";
+                return RedirectToAction(nameof(Index));
+            }
+            return View(session);
+        }
+
     }
 }

@@ -18,7 +18,7 @@ namespace GymSystem.DAL.Repositories.classes
         {
             this.dbContext = dbContext;
         }
-        public async Task<Session> GetAllSessionsByIdWithTrainerAndCategoryAssync(int sessionId, CancellationToken ct)
+        public async Task<Session> GetSessionByIdWithTrainerAndCategoryAsync(int sessionId, CancellationToken ct)
         {
 
 
@@ -29,7 +29,7 @@ namespace GymSystem.DAL.Repositories.classes
 
         }
 
-        public async Task<IEnumerable<Session>> GetAllSessionsWithTrainerAndCategoryAssync(CancellationToken ct)
+        public async Task<IEnumerable<Session>> GetAllSessionsWithTrainerAndCategoryAsync(CancellationToken ct)
         {
             var Sessions = dbContext.Sessions.AsNoTracking().Include(s => s.Trainer).Include(s => s.Category);
 

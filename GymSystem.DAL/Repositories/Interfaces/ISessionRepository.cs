@@ -10,9 +10,9 @@ namespace GymSystem.DAL.Repositories.Interfaces
     public interface ISessionRepository : IGenericRepository<Session>
     {
 
-        Task <IEnumerable<Session>> GetAllSessionsWithTrainerAndCategoryAssync (CancellationToken ct );
+        Task <IEnumerable<Session>> GetAllSessionsWithTrainerAndCategoryAsync (CancellationToken ct );
 
-        Task <Session> GetAllSessionsByIdWithTrainerAndCategoryAssync(int sessionId , CancellationToken ct);
+        Task <Session> GetSessionByIdWithTrainerAndCategoryAsync(int sessionId , CancellationToken ct);
 
         Task <int> GetCountOfBookedSlotAsync(int sessionId ,  CancellationToken ct );
     }
