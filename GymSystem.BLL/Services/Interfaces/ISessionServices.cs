@@ -21,5 +21,12 @@ namespace GymSystem.BLL._ٍServices.Interfaces
 
 
         Task<SessionViewModel?> GetSessionByIdAsync(int sessionId, CancellationToken ct );
+
+
+
+        Task<UpdateSessionViewModel>GetSessionToUpdateAsync(int sessionId, CancellationToken ct );
+
+
+        Task<Result> UpdateSessionAsync(int id ,UpdateSessionViewModel model, CancellationToken ct = default);
     }
 }

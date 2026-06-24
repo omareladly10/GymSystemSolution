@@ -22,24 +22,24 @@ namespace GymSystem.Controllers
 
 
 
-        public async Task<IActionResult> Create(CancellationToken ct) 
+        public async Task<IActionResult> Create(CancellationToken ct)
         {
             await PopulateDropDownAsync(ct);
             return View();
-        
+
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateSessionViewModel model,CancellationToken ct)
+        public async Task<IActionResult> Create(CreateSessionViewModel model, CancellationToken ct)
         {
-           if( !ModelState.IsValid  )
+            if (!ModelState.IsValid)
             {
                 await PopulateDropDownAsync(ct);
                 return View(model);
             }
-           var Result = await sessionServices.CreateSessionAsync(model,ct);
+            var Result = await sessionServices.CreateSessionAsync(model, ct);
 
-            if(Result.Success)
+            if (Result.Success)
             {
 
                 TempData["SuccessMessage"] = "Session Create Successfully";
@@ -54,9 +54,9 @@ namespace GymSystem.Controllers
         private async Task PopulateDropDownAsync(CancellationToken ct)
         {
 
-            ViewBag.Trainers  = new SelectList (await sessionServices.GetTrainersForDropDownAsync(ct),"Id", "Name");
+            ViewBag.Trainers = new SelectList(await sessionServices.GetTrainersForDropDownAsync(ct), "Id", "Name");
 
-            ViewBag.Categories =new SelectList( await sessionServices.GetCategoriesForDropDownAsync(ct), "Id", "CategoryName");
+            ViewBag.Categories = new SelectList(await sessionServices.GetCategoriesForDropDownAsync(ct), "Id", "CategoryName");
         }
 
         [HttpGet]
@@ -72,5 +72,40 @@ namespace GymSystem.Controllers
             return View(session);
         }
 
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id, CancellationToken ct)
+        {
+            var session = await sessionServices.GetSessionToUpdateAsync(id, ct);
+            if (session is null)
+            {
+                TempData["ErrorMessage"] = "Session Can not Edit, it's not found";
+                return RedirectToAction(nameof(Index));
+            }
+            await PopulateDropDownAsync(ct);
+            return View(session);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, UpdateSessionViewModel model, CancellationToken ct)
+        {
+            if (!ModelState.IsValid)
+            {
+                await PopulateDropDownAsync(ct);
+                return View(model);
+            }
+            var result = await sessionServices.UpdateSessionAsync(id, model, ct);
+            if (result.Success)
+            {
+                TempData["SuccessMessage"] = "Session Updated Successfully";
+                return RedirectToAction(nameof(Index));
+            }
+            TempData["ErrorMessage"] = result.Error;
+            await PopulateDropDownAsync(ct);
+            return View(model);
+        }
     }
 }
