@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GymSystem.BLL._ٍServices.Interfaces;
+using GymSystem.BLL.Common;
 using GymSystem.BLL.ViewModels.SessionsViewModels;
 using GymSystem.DAL.Entities;
 using GymSystem.DAL.Repositories.Interfaces;
@@ -22,21 +23,21 @@ namespace GymSystem.BLL._ٍServices.Classes
             this.mapper = mapper;
         }
 
-        public async Task<bool> CreateSessionAsync(CreateSessionViewModel model, CancellationToken ct = default)
+        public async Task<Result> CreateSessionAsync(CreateSessionViewModel model, CancellationToken ct = default)
         {
-            if (model.EndDate <= model.StartDate) return false;
+            if (model.EndDate <= model.StartDate) return Result.Validation("End Date Must Be After Start Date");
 
-            if (model.StartDate <=DateTime.Now) return false;
+            if (model.StartDate <=DateTime.Now) return Result.Validation("Start Date Must Be in the future");
 
             var TrainerRepo = unitOfWork.GetRepository<Trainer>();
 
             var Trainer = await TrainerRepo.GetById(model.TrainerId , ct);
 
-            if (Trainer is null) return false;
+            if (Trainer is null) return Result.NotFound("Trainer Not Found");
 
             var CategoryRepo = unitOfWork.GetRepository<Category>();
             var Category = await CategoryRepo.GetById(model.CategoryId , ct);
-            if (Category is null) return false;
+            if (Category is null) return Result.NotFound("Category Not Found");
 
             var session = mapper.Map<CreateSessionViewModel , Session>(model);
 
@@ -45,9 +46,9 @@ namespace GymSystem.BLL._ٍServices.Classes
 
             SessionRepo.Add(session);
 
-            var Result = await unitOfWork.CompeleteAsync();
+            var rowEffected = await unitOfWork.CompeleteAsync();
 
-            return Result > 0;
+            return rowEffected > 0 ? Result.ok() : Result.fail("Failed to create session");
         }
 
         public async Task<IEnumerable<SessionViewModel>> GetAllSessionsAsync(CancellationToken ct)
