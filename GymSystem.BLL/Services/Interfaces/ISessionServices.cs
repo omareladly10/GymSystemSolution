@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GymSystem.BLL._ٍServices.Interfaces
+namespace GymSystem.BLL.Services.Interfaces
 {
     public interface ISessionServices
     {
@@ -20,7 +20,7 @@ namespace GymSystem.BLL._ٍServices.Interfaces
         Task<IEnumerable<CategorySelectViewModel>> GetCategoriesForDropDownAsync(CancellationToken ct = default);
 
 
-        Task<SessionViewModel?> GetSessionByIdAsync(int sessionId, CancellationToken ct );
+       public Task<SessionViewModel> GetSessionByIdAsync(int sessionId, CancellationToken ct );
 
 
 
@@ -28,5 +28,13 @@ namespace GymSystem.BLL._ٍServices.Interfaces
 
 
         Task<Result> UpdateSessionAsync(int id ,UpdateSessionViewModel model, CancellationToken ct = default);
+
+
+        Task<Result>RemoveSessionAsync(int sessionId, CancellationToken ct );
+
+
+        public Task<SessionViewModel> GetSessionById(int sessionId, CancellationToken ct = default);
+
+
     }
 }

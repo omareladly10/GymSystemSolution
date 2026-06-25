@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GymSystem.BLL._ٍServices.Interfaces;
+using GymSystem.BLL.Services.Interfaces;
 using GymSystem.BLL.Common;
 using GymSystem.BLL.ViewModels.SessionsViewModels;
 using GymSystem.DAL.Entities;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GymSystem.BLL._ٍServices.Classes
+namespace GymSystem.BLL.Services.Classes
 {
     public class SessionServices : ISessionServices
     {
@@ -161,6 +161,32 @@ namespace GymSystem.BLL._ٍServices.Classes
             var EffectedRows = await unitOfWork.CompeleteAsync();   
 
             return EffectedRows > 0 ? Result.ok() : Result.fail("Failed to Update Session");
+        }
+
+        public async Task<Result> RemoveSessionAsync(int sessionId, CancellationToken ct)
+        {
+            var repo = unitOfWork.GetRepository<Session>();
+            var Session =await repo.GetById(sessionId , ct);
+
+            if (Session is null) return Result.NotFound("Session Not Found");
+            if(Session.EndDate >= DateTime.Now)
+                return Result.fail("Can not Delete a Session That has not yet ended");
+
+            var bookedCount = await unitOfWork.SessionRepository.GetCountOfBookedSlotAsync(sessionId, ct);
+
+            if (bookedCount > 0)
+                return Result.fail("Can not Delete a Session That has Bookings");
+
+            repo.Delete(sessionId);
+
+            var affectedRows = await unitOfWork.CompeleteAsync();   
+            return affectedRows > 0 ? Result.ok() : Result.fail("Failed to Delete Session");
+        }
+
+        public async Task<SessionViewModel> GetSessionById(int sessionId, CancellationToken ct)
+        {
+            var session = await unitOfWork.GetRepository<Session>().GetById(sessionId);
+            return mapper.Map<Session, SessionViewModel>(session);
         }
     }
 }

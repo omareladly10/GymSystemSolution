@@ -1,4 +1,4 @@
-﻿using GymSystem.BLL._ٍServices.Interfaces;
+﻿using GymSystem.BLL.Services.Interfaces;
 using GymSystem.BLL.ViewModels.MembersViewModels;
 using GymSystem.DAL.Entities;
 using GymSystem.DAL.Repositories.Interfaces;
@@ -9,7 +9,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GymSystem.BLL._ٍServices.Classes
+namespace GymSystem.BLL.Services.Classes
 {
     public class MemberServices : IMemberServices
     {

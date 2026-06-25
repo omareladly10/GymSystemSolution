@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GymSystem.BLL._ٍServices.Interfaces
+namespace GymSystem.BLL.Services.Interfaces
 {
     public interface IMemberServices
     {

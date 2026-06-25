@@ -1,5 +1,5 @@
-using GymSystem.BLL._ÚServices.Classes;
-using GymSystem.BLL._ÚServices.Interfaces;
+using GymSystem.BLL.Services.Classes;
+using GymSystem.BLL.Services.Interfaces;
 using GymSystem.BLL.Utilities;
 using GymSystem.DAL.Contexts;
 using GymSystem.DAL.Repositories.classes;

@@ -1,4 +1,4 @@
-﻿using GymSystem.BLL._ٍServices.Interfaces;
+﻿using GymSystem.BLL.Services.Interfaces;
 using GymSystem.BLL.ViewModels.MembersViewModels;
 using GymSystem.DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
